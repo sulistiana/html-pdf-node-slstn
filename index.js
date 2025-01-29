@@ -9,14 +9,20 @@ async function generatePdf(file, options, callback) {
     '--no-sandbox',
     '--disable-setuid-sandbox',
   ];
+  let
   if(options.args) {
     args = options.args;
     delete options.args;
   }
-
-  const browser = await puppeteer.launch({
+  let optionsPuppeter = {
     args: args
-  });
+  }
+  if(options.executablePath){
+    optionsPuppeter.executablePath = options.executablePath;
+    delete options.executablePath;
+  }
+
+  const browser = await puppeteer.launch(optionsPuppeter);
   const page = await browser.newPage();
 
   if(file.content) {
@@ -55,9 +61,14 @@ async function generatePdfs(files, options, callback) {
     args = options.args;
     delete options.args;
   }
-  const browser = await puppeteer.launch({
+  let optionsPuppeter = {
     args: args
-  });
+  }
+  if(options.executablePath){
+    optionsPuppeter.executablePath = options.executablePath;
+    delete options.executablePath;
+  }
+  const browser = await puppeteer.launch(optionsPuppeter);
   let pdfs = [];
   const page = await browser.newPage();
   for(let file of files) {
