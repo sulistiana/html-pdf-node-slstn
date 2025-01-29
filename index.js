@@ -9,7 +9,6 @@ async function generatePdf(file, options, callback) {
     '--no-sandbox',
     '--disable-setuid-sandbox',
   ];
-  let
   if(options.args) {
     args = options.args;
     delete options.args;
